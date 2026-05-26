@@ -1,0 +1,2192 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+eslint.config.mjs
+next.config.ts
+package.json
+postcss.config.mjs
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
+README.md
+src/app/favicon.ico
+src/app/globals.css
+src/app/layout.tsx
+src/app/page.tsx
+src/components/BlurReveal.tsx
+src/components/Layout/Footer.tsx
+src/components/Layout/Header.tsx
+src/components/ScaleReveal.tsx
+src/components/ScrollReveal.tsx
+src/components/Section/BenefitsSection.tsx
+src/components/Section/DevicesSection.tsx
+src/components/Section/FaqSection.tsx
+src/components/Section/HeroSection.tsx
+src/components/Section/HowSection.tsx
+src/components/Section/PlansSection.tsx
+src/components/Section/ServersSectoin.tsx
+src/components/StaggerReveal.tsx
+src/hooks/useTheme.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="src/components/BlurReveal.tsx">
+// components/BlurReveal.tsx
+'use client';
+
+import { motion, useInView } from 'motion/react';
+import { useRef, ReactNode } from 'react';
+
+export default function BlurReveal({
+  children,
+  className = '',
+  duration = 0.8,
+}: {
+  children: ReactNode;
+  className?: string;
+  duration?: number;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+      animate={isInView ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
+      transition={{ duration, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+</file>
+
+<file path="src/components/Layout/Footer.tsx">
+import {
+  ArrowRight,
+  Clock,
+  Mail,
+  MessageCircle,
+  Shield,
+  ShieldCheck,
+} from 'lucide-react';
+
+export default function Footer() {
+  return (
+    <footer className="mt-auto border-t border-dark-border bg-dark-surface/50 backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        {/* Основная сетка футера */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Бренд и описание */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-primary text-white shadow-lg shadow-(color:--accent-primary)/30">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-sm font-semibold tracking-wide">
+                  VPN Shield
+                </div>
+                <div className="text-xs text-text-muted">
+                  Secure internet access
+                </div>
+              </div>
+            </div>
+            <p className="text-sm text-text-secondary">
+              Современный VPN-сервис с упором на скорость, стабильность и
+              приватность. Защищаем ваши данные с 2020 года.
+            </p>
+          </div>
+
+          {/* Навигация */}
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-text-muted">
+              Навигация
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { name: 'Преимущества', href: '#benefits' },
+                { name: 'Тарифы', href: '#plans' },
+                { name: 'Серверы', href: '#servers' },
+                { name: 'Как работает', href: '#how-it-works' },
+                { name: 'FAQ', href: '#faq' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    className="text-sm text-text-secondary transition hover:text-accent-primary"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Правовая информация */}
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-text-muted">
+              Юридическая информация
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { name: 'Политика конфиденциальности', href: '#' },
+                { name: 'Публичная оферта', href: '#' },
+                { name: 'Политика возврата', href: '#' },
+                { name: 'DMCA', href: '#' },
+                { name: 'Лицензионное соглашение', href: '#' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    className="text-sm text-text-secondary transition hover:text-accent-primary"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Контакты и подписка */}
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-text-muted">
+              Связаться с нами
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2 text-sm text-text-secondary">
+                <Mail className="h-4 w-4 text-accent-cyan" />
+                <a
+                  href="mailto:support@vpnshield.com"
+                  className="hover:text-accent-primary"
+                >
+                  support@vpnshield.com
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-text-secondary">
+                <MessageCircle className="h-4 w-4 text-accent-cyan" />
+                <a href="#" className="hover:text-accent-primary">
+                  Telegram: @vpnshield
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-text-secondary">
+                <Clock className="h-4 w-4 text-accent-cyan" />
+                <span>Поддержка 24/7</span>
+              </li>
+            </ul>
+
+            {/* Форма подписки на новости */}
+            <div className="mt-6">
+              <p className="mb-2 text-sm text-text-secondary">
+                Будьте в курсе новостей
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Ваш email"
+                  className="flex-1 rounded-xl border border-dark-border bg-dark-elevated px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:border-accent-primary focus:outline-none"
+                />
+                <button
+                  type="button"
+                  className="rounded-xl bg-accent-primary px-3 py-2 text-white transition hover:bg-accent-glow"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+              <p className="mt-2 text-xs text-text-muted">
+                Никакого спама, только важные обновления
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Нижняя линия с копирайтом */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-dark-border pt-8 text-center sm:flex-row">
+          <div className="text-sm text-text-muted">
+            © {new Date().getFullYear()} VPN Shield. Все права защищены.
+          </div>
+          <div className="flex gap-6 text-sm text-text-muted">
+            <a href="#" className="transition hover:text-accent-primary">
+              Пользовательское соглашение
+            </a>
+            <a href="#" className="transition hover:text-accent-primary">
+              Cookies
+            </a>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-text-muted">
+            <Shield className="h-3 w-3" />
+            Работает на Next.js
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+</file>
+
+<file path="src/components/Layout/Header.tsx">
+'use client';
+import { ShieldCheck, Moon, SunMedium, Menu } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+
+const links: { href: string; name: string }[] = [
+  {
+    href: '#benefits',
+    name: 'Преимущества',
+  },
+  {
+    href: '#servers',
+    name: 'Сервера',
+  },
+  {
+    href: '#plans',
+    name: 'Тарифы',
+  },
+  {
+    href: '#devices',
+    name: 'Устройства',
+  },
+  {
+    href: '#faq',
+    name: 'Вопросы',
+  },
+];
+
+function ToggleThemeButton() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const init = () => {
+      setMounted(true);
+    };
+    init();
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button
+        type="button"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-dark-border bg-dark-surface text-text-primary transition"
+        aria-label="Загрузка..."
+        disabled
+      >
+        {/* Заглушка вместо иконки */}
+        <div className="h-5 w-5 animate-pulse rounded-full bg-gray-400/20" />
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-dark-border bg-dark-surface text-text-primary transition hover:scale-[1.02] hover:border-accent-primary"
+      aria-label="Переключить тему"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+    >
+      <div className="relative h-5 w-5">
+        <SunMedium
+          className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
+            theme === 'dark'
+              ? 'rotate-90 scale-0 opacity-0'
+              : 'rotate-0 scale-100 opacity-100'
+          }`}
+        />
+        <Moon
+          className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
+            theme === 'dark'
+              ? 'rotate-0 scale-100 opacity-100'
+              : '-rotate-90 scale-0 opacity-0'
+          }`}
+        />
+      </div>
+    </button>
+  );
+}
+
+export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
+  return (
+    <>
+      <header className="sticky top-0 z-50 border-b border-dark-border bg-(--dark-deep)/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-primary text-white shadow-lg shadow-(color:--accent-primary)/30">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold tracking-wide">
+                VPN Shield
+              </div>
+              <div className="text-xs text-text-muted">
+                Secure internet access
+              </div>
+            </div>
+          </div>
+
+          <nav className=" items-center gap-8 flex max-[940px]:hidden">
+            {links.map((l) => (
+              <a
+                key={l.name}
+                className="text-sm text-text-secondary transition hover:text-text-primary"
+                href={l.href}
+              >
+                {l.name}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            {/* button */}
+            <ToggleThemeButton></ToggleThemeButton>
+            <button
+              type="button"
+              className="inline-flex min-[940px]:hidden h-11 w-11 items-center justify-center rounded-xl border border-dark-border bg-dark-surface text-text-primary "
+              aria-label="Открыть меню"
+              onClick={() => setIsMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+
+            <a
+              href="#plans"
+              className="hidden rounded-xl bg-accent-primary px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-(color:--accent-primary)/25 transition hover:bg-accent-glow sm:inline-flex"
+            >
+              Подключить VPN
+            </a>
+          </div>
+        </div>
+      </header>
+      <>
+        {isMenuOpen && (
+          <div
+            className="fixed  inset-0 z-50 bg-black/60 backdrop-blur-sm "
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+        <div
+          className={`fixed  right-0 top-0 z-50 h-full w-80 transform border-l border-dark-border bg-dark-deep p-6 shadow-2xl transition-transform duration-300 ease-out ${
+            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-dark-border bg-dark-surface text-text-primary"
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Закрыть меню"
+            >
+              ✕
+            </button>
+          </div>
+          <nav className="mt-8 flex flex-col gap-6">
+            {links.map((l) => (
+              <a
+                key={l.name}
+                className="text-lg text-text-secondary transition hover:text-text-primary"
+                href={l.href}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {l.name}
+              </a>
+            ))}
+            <div className="mt-4 pt-4 border-t border-dark-border">
+              <a
+                href="#plans"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-accent-primary px-5 py-3 text-sm font-medium text-white shadow-lg shadow-(color:--accent-primary)/25 transition hover:bg-accent-glow"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Подключить VPN
+              </a>
+            </div>
+          </nav>
+        </div>
+      </>
+    </>
+  );
+}
+</file>
+
+<file path="src/components/ScaleReveal.tsx">
+// components/ScaleReveal.tsx
+'use client';
+
+import { motion, useInView } from 'motion/react';
+import { useRef, ReactNode } from 'react';
+
+export default function ScaleReveal({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+      transition={{
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+</file>
+
+<file path="src/components/ScrollReveal.tsx">
+// components/ScrollReveal.tsx
+'use client';
+
+import { motion, useInView } from 'motion/react';
+import { useRef, ReactNode } from 'react';
+
+interface ScrollRevealProps {
+  children: ReactNode;
+  className?: string;
+  // Варианты анимаций
+  direction?: 'up' | 'down' | 'left' | 'right';
+  delay?: number;
+  duration?: number;
+  once?: boolean; // Анимировать только один раз
+}
+
+const animations = {
+  up: { y: 60 },
+  down: { y: -60 },
+  left: { x: -60 },
+  right: { x: 60 },
+};
+
+export default function ScrollReveal({
+  children,
+  className = '',
+  direction = 'up',
+  delay = 0,
+  duration = 0.7,
+  once = true,
+}: ScrollRevealProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once,
+    margin: '-100px', // Начать анимацию чуть раньше
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{
+        opacity: 0,
+        ...animations[direction],
+      }}
+      animate={
+        isInView
+          ? {
+              opacity: 1,
+              x: 0,
+              y: 0,
+            }
+          : {}
+      }
+      transition={{
+        duration,
+        delay,
+        ease: [0.25, 0.46, 0.45, 0.94], // Плавный easing
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+</file>
+
+<file path="src/components/Section/BenefitsSection.tsx">
+import { Globe2, ShieldCheck, Zap } from 'lucide-react';
+import StaggerReveal from '@/components/StaggerReveal';
+import BlurReveal from '@/components/BlurReveal';
+
+const features = [
+  {
+    icon: ShieldCheck,
+    title: 'AES-256 защита',
+    text: 'Надёжное шифрование трафика, чтобы данные оставались приватными в любых сетях.',
+  },
+  {
+    icon: Zap,
+    title: 'Высокая скорость',
+    text: 'Оптимизированная инфраструктура для стриминга, игр и повседневного серфинга без лагов.',
+  },
+  {
+    icon: Globe2,
+    title: 'Серверы по всему миру',
+    text: 'Выбор локаций для стабильного доступа к нужным сервисам и быстрого соединения.',
+  },
+];
+
+export default function BenefitsSection() {
+  return (
+    <section
+      id="benefits"
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+    >
+      <BlurReveal className="mb-10 max-w-2xl">
+        <h2 className="text-3xl font-semibold">Преимущества сервиса</h2>
+      </BlurReveal>
+
+      <StaggerReveal className="grid gap-6 md:grid-cols-3" staggerDelay={0.15}>
+        {features.map(({ icon: Icon, title, text }) => (
+          <article
+            key={title}
+            className="rounded-3xl border border-dark-border bg-dark-surface p-6 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 h-full"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-dark-elevated text-accent-primary">
+              <Icon className="h-6 w-6" />
+            </div>
+            <h3 className="mt-5 text-xl font-semibold">{title}</h3>
+            <p className="mt-3 leading-7 text-text-secondary">{text}</p>
+          </article>
+        ))}
+      </StaggerReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/DevicesSection.tsx">
+import {
+  Check,
+  Clock,
+  Globe,
+  Monitor,
+  Repeat,
+  Smartphone,
+  Terminal,
+  Tv,
+  Users,
+  Wifi,
+} from 'lucide-react';
+import BlurReveal from '@/components/BlurReveal';
+import StaggerReveal from '@/components/StaggerReveal';
+import ScrollReveal from '@/components/ScrollReveal';
+
+export default function DevicesSection() {
+  return (
+    <section
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+      id="devices"
+    >
+      {/* Заголовок с размытием */}
+      <BlurReveal className="mb-12 text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface px-4 py-2 text-sm text-text-secondary">
+          <Smartphone className="h-4 w-4 text-accent-cyan" />
+          Кроссплатформенность
+        </div>
+        <h2 className="text-3xl font-semibold sm:text-4xl">
+          Работает на всех ваших устройствах
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+          Одна подписка — защита для всех устройств в вашей цифровой жизни
+        </p>
+      </BlurReveal>
+
+      {/* Сетка устройств с каскадным появлением */}
+      <StaggerReveal
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        staggerDelay={0.08}
+      >
+        {/* Windows */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 group-hover:from-blue-500/30 group-hover:to-cyan-500/30">
+            <Monitor className="h-8 w-8 text-blue-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Windows</h3>
+          <p className="mt-1 text-sm text-text-muted">10 / 11</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Готово
+          </div>
+        </div>
+
+        {/* macOS */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-gray-500/20 to-slate-500/20 group-hover:from-gray-500/30 group-hover:to-slate-500/30">
+            <Monitor className="h-8 w-8 text-gray-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">macOS</h3>
+          <p className="mt-1 text-sm text-text-muted">Ventura и новее</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Готово
+          </div>
+        </div>
+
+        {/* Android */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 group-hover:from-green-500/30 group-hover:to-emerald-500/30">
+            <Smartphone className="h-8 w-8 text-green-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Android</h3>
+          <p className="mt-1 text-sm text-text-muted">10 и выше</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Готово
+          </div>
+        </div>
+
+        {/* iOS */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 group-hover:from-purple-500/30 group-hover:to-pink-500/30">
+            <Smartphone className="h-8 w-8 text-purple-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">iOS</h3>
+          <p className="mt-1 text-sm text-text-muted">15 и выше</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Готово
+          </div>
+        </div>
+
+        {/* Linux */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/20 to-amber-500/20 group-hover:from-orange-500/30 group-hover:to-amber-500/30">
+            <Terminal className="h-8 w-8 text-orange-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Linux</h3>
+          <p className="mt-1 text-sm text-text-muted">Ubuntu, Debian, Fedora</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            CLI + GUI
+          </div>
+        </div>
+
+        {/* Routers */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500/20 to-blue-500/20 group-hover:from-indigo-500/30 group-hover:to-blue-500/30">
+            <Wifi className="h-8 w-8 text-indigo-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Роутеры</h3>
+          <p className="mt-1 text-sm text-text-muted">OpenWRT, DD-WRT, ASUS</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Защита всей сети
+          </div>
+        </div>
+
+        {/* Chrome Extension */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500/20 to-yellow-500/20 group-hover:from-red-500/30 group-hover:to-yellow-500/30">
+            <Globe className="h-8 w-8 text-red-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Браузеры</h3>
+          <p className="mt-1 text-sm text-text-muted">Chrome, Firefox, Edge</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Расширение
+          </div>
+        </div>
+
+        {/* Smart TV */}
+        <div className="group rounded-2xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-1 hover:border-accent-primary hover:shadow-lg">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 group-hover:from-teal-500/30 group-hover:to-cyan-500/30">
+            <Tv className="h-8 w-8 text-teal-400" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Smart TV</h3>
+          <p className="mt-1 text-sm text-text-muted">Android TV, Apple TV</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-dark-elevated px-2 py-0.5 text-xs text-text-muted">
+            <Check className="h-3 w-3 text-success" />
+            Стриминг
+          </div>
+        </div>
+      </StaggerReveal>
+
+      {/* Блок с преимуществами — отдельная анимация */}
+      <ScrollReveal direction="up" delay={0.2} className="mt-12">
+        <div className="rounded-3xl bg-gradient-to-r from-accent-primary/5 to-accent-cyan/5 p-4 sm:p-6">
+          <div className="flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:flex-wrap lg:flex-nowrap lg:text-left">
+            {/* Первый блок */}
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-primary/10 sm:h-14 sm:w-14">
+                <Users className="h-6 w-6 text-accent-primary sm:h-7 sm:w-7" />
+              </div>
+              <div>
+                <div className="text-xl font-bold sm:text-2xl">
+                  До 5 устройств
+                </div>
+                <div className="text-sm text-text-muted sm:text-base">
+                  по одной подписке Pro
+                </div>
+              </div>
+            </div>
+
+            {/* Разделитель */}
+            <div className="h-px w-full bg-dark-border sm:hidden" />
+            <div className="hidden h-12 w-px bg-dark-border sm:block" />
+
+            {/* Второй блок */}
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-cyan/10 sm:h-14 sm:w-14">
+                <Repeat className="h-6 w-6 text-accent-cyan sm:h-7 sm:w-7" />
+              </div>
+              <div>
+                <div className="text-xl font-bold sm:text-2xl">
+                  Неограниченный трафик
+                </div>
+                <div className="text-sm text-text-muted sm:text-base">
+                  на всех тарифах
+                </div>
+              </div>
+            </div>
+
+            {/* Разделитель */}
+            <div className="h-px w-full bg-dark-border sm:hidden" />
+            <div className="hidden h-12 w-px bg-dark-border sm:block" />
+
+            {/* Третий блок */}
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-success/10 sm:h-14 sm:w-14">
+                <Clock className="h-6 w-6 text-success sm:h-7 sm:w-7" />
+              </div>
+              <div>
+                <div className="text-xl font-bold sm:text-2xl">
+                  Бесплатные обновления
+                </div>
+                <div className="text-sm text-text-muted sm:text-base">
+                  на все устройства
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/FaqSection.tsx">
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Headphones,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  MessageSquare,
+  X,
+} from 'lucide-react';
+
+export default function FaqSection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" id="faq">
+      <div className="mb-12 text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface px-4 py-2 text-sm text-text-secondary">
+          <HelpCircle className="h-4 w-4 text-accent-cyan" />
+          Ответы на вопросы
+        </div>
+        <h2 className="text-3xl font-semibold sm:text-4xl">
+          Часто задаваемые вопросы
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+          Всё, что нужно знать перед началом использования
+        </p>
+      </div>
+
+      <div className="mx-auto max-w-3xl">
+        {/* FAQ 1 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">Будет ли падать скорость интернета?</span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>
+              Наши серверы оптимизированы для минимальной потери скорости. В
+              среднем снижение составляет 10-15%, что незаметно при обычном
+              серфинге, стриминге и даже онлайн-играх. Благодаря протоколу
+              WireGuard вы получите максимальную скорость среди VPN-решений.
+            </p>
+            <div className="mt-4 flex items-center gap-2 text-sm text-success">
+              <Check className="h-4 w-4" />
+              Большинство пользователей не замечают разницы в скорости
+            </div>
+          </div>
+        </details>
+
+        {/* FAQ 2 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">Вы храните логи моей активности?</span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p className="mb-3">
+              <span className="font-semibold text-accent-primary">
+                Нет, мы не храним логи.
+              </span>{' '}
+              У нас строгая политика no-logs, подтвержденная независимым
+              аудитом. Мы не собираем:
+            </p>
+            <ul className="space-y-2">
+              {[
+                'IP-адреса при подключении',
+                'Историю посещенных сайтов',
+                'Время и длительность сессий',
+                'Объем переданного трафика',
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm">
+                  <X className="h-3.5 w-3.5 text-danger" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 rounded-lg bg-accent-primary/5 p-3 text-sm">
+              🔒 Единственное, что мы храним — зашифрованные данные для оплаты и
+              обратной связи.
+            </p>
+          </div>
+        </details>
+
+        {/* FAQ 3 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">Сколько устройств можно подключить?</span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>Количество устройств зависит от выбранного тарифа:</p>
+            <ul className="mt-3 space-y-2">
+              {[
+                {
+                  plan: 'Starter',
+                  devices: '1 устройство',
+                  color: 'text-text-secondary',
+                },
+                {
+                  plan: 'Pro',
+                  devices: 'До 5 устройств',
+                  color: 'text-accent-primary',
+                },
+                {
+                  plan: 'Team',
+                  devices: 'До 10 устройств',
+                  color: 'text-accent-cyan',
+                },
+              ].map((item) => (
+                <li
+                  key={item.plan}
+                  className="flex items-center justify-between border-b border-dark-border pb-2 last:border-0"
+                >
+                  <span className="font-medium">{item.plan}</span>
+                  <span className={item.color}>{item.devices}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm text-text-muted">
+              Вы можете использовать VPN на всех устройствах одновременно —
+              ограничений по времени нет.
+            </p>
+          </div>
+        </details>
+
+        {/* FAQ 4 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">
+              Подходит ли VPN для Netflix и других сервисов?
+            </span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>
+              Да! Наши серверы оптимизированы для разблокировки популярных
+              стриминговых сервисов:
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[
+                'Netflix',
+                'YouTube',
+                'HBO Max',
+                'Disney+',
+                'Amazon Prime',
+                'Spotify',
+              ].map((service) => (
+                <span
+                  key={service}
+                  className="rounded-full bg-dark-elevated px-3 py-1 text-sm"
+                >
+                  {service}
+                </span>
+              ))}
+            </div>
+            <p className="mt-4 text-sm text-text-muted">
+              💡 Рекомендуем использовать выделенные серверы для стриминга — они
+              отмечены в приложении.
+            </p>
+          </div>
+        </details>
+
+        {/* FAQ 5 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">Как получить возврат денег?</span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>
+              У нас действует{' '}
+              <span className="font-semibold text-accent-primary">
+                30-дневная гарантия возврата денег
+              </span>
+              . Если сервис вам не подошел, просто напишите в поддержку:
+            </p>
+            <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm">
+              <li>
+                Отправьте запрос через форму на сайте или на почту
+                support@vpnshield.com
+              </li>
+              <li>
+                Укажите причину возврата (опционально, для улучшения сервиса)
+              </li>
+              <li>Мы вернем полную сумму в течение 7 рабочих дней</li>
+            </ol>
+            <div className="mt-4 rounded-lg bg-success/10 p-3 text-sm text-success">
+              ✅ Деньги возвращаются без лишних вопросов — никаких скрытых
+              комиссий
+            </div>
+          </div>
+        </details>
+
+        {/* FAQ 6 */}
+        <details className="group mb-4 rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">
+              Что такое Kill Switch и зачем он нужен?
+            </span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>
+              Kill Switch (аварийное отключение) — это функция, которая
+              автоматически блокирует интернет-трафик, если VPN-соединение
+              неожиданно прерывается.
+            </p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-danger/20 bg-danger/5 p-3">
+                <div className="text-sm font-semibold text-danger">
+                  Без Kill Switch
+                </div>
+                <div className="mt-1 text-xs text-text-muted">
+                  Ваш реальный IP может стать видимым на секунду
+                </div>
+              </div>
+              <div className="rounded-xl border border-success/20 bg-success/5 p-3">
+                <div className="text-sm font-semibold text-success">
+                  С Kill Switch
+                </div>
+                <div className="mt-1 text-xs text-text-muted">
+                  Трафик полностью блокируется до восстановления VPN
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-sm">
+              Функция включена по умолчанию во всех наших приложениях.
+            </p>
+          </div>
+        </details>
+
+        {/* FAQ 7 - Бонусный вопрос про поддержку */}
+        <details className="group rounded-2xl border border-dark-border bg-dark-surface transition-all open:border-accent-primary">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-medium">
+            <span className="text-lg">Какая у вас служба поддержки?</span>
+            <ChevronDown className="h-5 w-5 text-text-muted transition-transform duration-300 group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-dark-border px-6 pb-6 pt-4 text-text-secondary">
+            <p>
+              Мы работаем 24/7 и отвечаем в среднем за 2-5 минут. Вы можете
+              связаться с нами:
+            </p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <div className="flex items-center gap-2 rounded-xl border border-dark-border px-4 py-2">
+                <MessageCircle className="h-4 w-4 text-accent-cyan" />
+                <span className="text-sm">Онлайн-чат на сайте</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-dark-border px-4 py-2">
+                <Mail className="h-4 w-4 text-accent-cyan" />
+                <span className="text-sm">Email: support@vpnshield.com</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-dark-border px-4 py-2">
+                <MessageSquare className="h-4 w-4 text-accent-cyan" />
+                <span className="text-sm">Telegram: @vpnshield_support</span>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      {/* Блок "Не нашли ответ?" */}
+      <div className="mx-auto mt-12 max-w-3xl rounded-2xl bg-gradient-to-r from-accent-primary/5 to-accent-cyan/5 p-6 text-center">
+        <Headphones className="mx-auto mb-3 h-8 w-8 text-accent-primary" />
+        <h3 className="text-xl font-semibold">Остались вопросы?</h3>
+        <p className="mt-2 text-text-secondary">
+          Наша поддержка готова помочь вам 24/7. Среднее время ответа — 2
+          минуты.
+        </p>
+        <button
+          type="button"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent-primary px-5 py-2.5 font-medium text-white transition hover:bg-accent-glow"
+        >
+          Написать в поддержку
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/HeroSection.tsx">
+import { ArrowRight, Rocket, Server, Lock } from 'lucide-react';
+import ScrollReveal from '../ScrollReveal';
+
+export default function HeroSection() {
+  return (
+    <section className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(108,92,231,0.18),transparent_35%),radial-gradient(circle_at_top_right,rgba(0,216,170,0.10),transparent_30%)]" />
+      <ScrollReveal>
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
+          <div className="flex flex-col justify-center">
+            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-dark-border bg-dark-surface px-4 py-2 text-sm text-text-secondary">
+              <Lock className="h-4 w-4 text-accent-cyan" />
+              Безопасный доступ в интернет
+            </div>
+  
+            <h1 className="max-w-xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              Быстрый и приватный VPN для работы, стриминга и свободы в сети
+            </h1>
+  
+            <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
+              Современный VPN-сервис с упором на скорость, стабильность и
+              удобство. Подходит для личного использования и команд.
+            </p>
+  
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="#plans"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent-primary px-6 py-3.5 font-medium text-white shadow-lg shadow-(color:--accent-primary)/25 transition hover:bg-accent-glow"
+              >
+                Выбрать тариф
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#benefits"
+                className="inline-flex items-center justify-center rounded-xl border border-dark-border bg-dark-surface px-6 py-3.5 font-medium text-text-primary transition hover:border-accent-primary"
+              >
+                Посмотреть преимущества
+              </a>
+            </div>
+  
+            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4">
+              {[
+                ['99.9%', 'Uptime'],
+                ['50+', 'Локаций'],
+                ['24/7', 'Поддержка'],
+              ].map(([value, label]) => (
+                <div
+                  key={label}
+                  className="rounded-2xl border border-dark-border bg-dark-surface p-4"
+                >
+                  <div className="text-2xl font-semibold">{value}</div>
+                  <div className="mt-1 text-sm text-text-muted">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+  
+          <div className="relative">
+            <div className="absolute -inset-6 rounded-4xl bg-[linear-gradient(135deg,rgba(108,92,231,0.20),rgba(0,168,138,0.12))] blur-3xl" />
+            <div className="relative rounded-4xl border border-dark-border bg-dark-surface p-6 shadow-2xl shadow-black/10">
+              <div className="flex items-center justify-between border-b border-dark-border pb-4">
+                <div>
+                  <div className="text-sm text-text-muted">Подключение</div>
+                  <div className="text-lg font-semibold">Москва → Нидерланды</div>
+                </div>
+                <div className="rounded-full bg-(--success)/10 px-3 py-1 text-sm text-success">
+                  Stable
+                </div>
+              </div>
+  
+              <div className="mt-6 space-y-4">
+                {[
+                  {
+                    label: 'Ping',
+                    value: '18 ms',
+                    accent: 'text-[var(--accent-cyan)]',
+                  },
+                  {
+                    label: 'Download',
+                    value: '256 Mbps',
+                    accent: 'text-[var(--accent-primary)]',
+                  },
+                  {
+                    label: 'Encryption',
+                    value: 'Enabled',
+                    accent: 'text-[var(--success)]',
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-dark-border bg-dark-elevated p-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-text-muted">
+                        {item.label}
+                      </span>
+                      <span className={`text-lg font-semibold ${item.accent}`}>
+                        {item.value}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+  
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-dark-border bg-dark-elevated p-4">
+                  <Server className="h-5 w-5 text-accent-primary" />
+                  <div className="mt-3 text-sm text-text-muted">Server pool</div>
+                  <div className="text-xl font-semibold">120+</div>
+                </div>
+                <div className="rounded-2xl border border-dark-border bg-dark-elevated p-4">
+                  <Rocket className="h-5 w-5 text-accent-cyan" />
+                  <div className="mt-3 text-sm text-text-muted">
+                    Quick connect
+                  </div>
+                  <div className="text-xl font-semibold">&lt; 3 sec</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/HowSection.tsx">
+import {
+  ArrowRight,
+  Check,
+  Download,
+  ShieldCheck,
+  ToggleLeft,
+  Zap,
+} from 'lucide-react';
+import BlurReveal from '@/components/BlurReveal';
+import StaggerReveal from '@/components/StaggerReveal';
+import ScrollReveal from '@/components/ScrollReveal';
+
+export default function HowSection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" id="how">
+      {/* Заголовок с эффектом размытия */}
+      <BlurReveal className="mb-12 text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface px-4 py-2 text-sm text-text-secondary">
+          <Zap className="h-4 w-4 text-accent-cyan" />
+          Простота и скорость
+        </div>
+        <h2 className="text-3xl font-semibold sm:text-4xl">
+          Начните пользоваться за 3 минуты
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+          Никаких сложных настроек — всё работает сразу после установки
+        </p>
+      </BlurReveal>
+
+      {/* <div className="absolute left-1/3 right-1/3 top-20 hidden h-px bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent md:block" /> */}
+      <StaggerReveal className="relative grid gap-8 md:grid-cols-3">
+        <div className="group relative rounded-3xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-2 hover:border-accent-primary hover:shadow-xl">
+          <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-primary to-accent-cyan shadow-lg">
+            <span className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-dark-surface text-lg font-bold text-accent-primary shadow-md">
+              1
+            </span>
+            <Download className="h-8 w-8 text-white" />
+          </div>
+          <h3 className="mt-6 text-xl font-semibold">Скачайте приложение</h3>
+          <p className="mt-3 text-text-secondary">
+            Доступно для всех платформ: Windows, macOS, iOS, Android, Linux и
+            даже роутеров
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            {['Windows', 'macOS', 'iOS', 'Android'].map((os) => (
+              <span
+                key={os}
+                className="rounded-full bg-dark-elevated px-3 py-1 text-xs text-text-muted"
+              >
+                {os}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="group relative rounded-3xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-2 hover:border-accent-primary hover:shadow-xl">
+          <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-primary to-accent-cyan shadow-lg">
+            <span className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-dark-surface text-lg font-bold text-accent-primary shadow-md">
+              2
+            </span>
+            <ToggleLeft className="h-8 w-8 text-white" />
+          </div>
+          <h3 className="mt-6 text-xl font-semibold">Нажмите «Подключиться»</h3>
+          <p className="mt-3 text-text-secondary">
+            Одно нажатие — и ваше соединение зашифровано. Мы подберем лучший
+            сервер автоматически
+          </p>
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent-primary/10 px-3 py-1 text-sm text-accent-primary">
+            <Check className="h-3 w-3" />
+            Kill Switch активен
+          </div>
+        </div>
+
+        <div className="group relative rounded-3xl border border-dark-border bg-dark-surface p-6 text-center transition-all hover:-translate-y-2 hover:border-accent-primary hover:shadow-xl">
+          <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-primary to-accent-cyan shadow-lg">
+            <span className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-dark-surface text-lg font-bold text-accent-primary shadow-md">
+              3
+            </span>
+            <ShieldCheck className="h-8 w-8 text-white" />
+          </div>
+          <h3 className="mt-6 text-xl font-semibold">Пользуйтесь безопасно</h3>
+          <p className="mt-3 text-text-secondary">
+            Ваш IP скрыт, трафик зашифрован. Смотрите контент, играйте и
+            работайте без ограничений
+          </p>
+          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-success">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-success" />
+            Защита активна
+          </div>
+        </div>
+      </StaggerReveal>
+
+      {/* Гарантийная плашка с отдельной анимацией */}
+      <ScrollReveal direction="up" delay={0.3} className="mt-12">
+        <div className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-dark-border bg-dark-elevated p-4 sm:flex-row">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+              <Check className="h-6 w-6 text-success" />
+            </div>
+            <div>
+              <div className="font-semibold">30 дней гарантии возврата</div>
+              <div className="text-sm text-text-muted">
+                Попробуйте VPN без риска — вернем деньги, если не подойдет
+              </div>
+            </div>
+          </div>
+          <a
+            href="#plans"
+            className="inline-flex items-center gap-2 rounded-xl bg-accent-primary px-5 py-2.5 font-medium text-white transition hover:bg-accent-glow"
+          >
+            Начать бесплатно
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </ScrollReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/PlansSection.tsx">
+import { Check } from 'lucide-react';
+import BlurReveal from '@/components/BlurReveal';
+import StaggerReveal from '@/components/StaggerReveal';
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '199 ₽',
+    period: '/ мес',
+    description: 'Для личного использования и безопасного серфинга.',
+    items: ['1 устройство', 'Базовые локации', '24/7 поддержка'],
+    featured: false,
+  },
+  {
+    name: 'Pro',
+    price: '399 ₽',
+    period: '/ мес',
+    description: 'Оптимальный вариант для повседневной работы и контента.',
+    items: ['До 5 устройств', 'Все локации', 'Приоритетная поддержка'],
+    featured: true,
+  },
+  {
+    name: 'Team',
+    price: '799 ₽',
+    period: '/ мес',
+    description: 'Для команды, семьи или нескольких активных пользователей.',
+    items: [
+      'До 10 устройств',
+      'Расширенные настройки',
+      'Персональный менеджер',
+    ],
+    featured: false,
+  },
+];
+
+export default function PlansSection() {
+  return (
+    <section
+      id="plans"
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+    >
+      {/* Заголовок с размытием */}
+      <BlurReveal className="mb-10 max-w-2xl">
+        <h2 className="text-3xl font-semibold">Тарифы</h2>
+      </BlurReveal>
+
+      {/* Карточки с каскадным появлением */}
+      <StaggerReveal className="grid gap-6 lg:grid-cols-3" staggerDelay={0.2}>
+        {plans.map((plan) => (
+          <article
+            key={plan.name}
+            className={`rounded-3xl border p-6 ${
+              plan.featured
+                ? 'border-accent-primary bg-[linear-gradient(180deg,rgba(108,92,231,0.12),rgba(17,24,39,0))]'
+                : 'border-dark-border bg-dark-surface'
+            }`}
+          >
+            {plan.featured && (
+              <div className="mb-4 inline-flex rounded-full bg-accent-primary px-3 py-1 text-xs font-medium text-white">
+                Popular
+              </div>
+            )}
+            <h3 className="text-xl font-semibold">{plan.name}</h3>
+            <div className="mt-4 flex items-end gap-1">
+              <span className="text-4xl font-semibold">{plan.price}</span>
+              <span className="pb-1 text-text-muted">{plan.period}</span>
+            </div>
+            <p className="mt-4 text-text-secondary">{plan.description}</p>
+            <ul className="mt-6 space-y-3">
+              {plan.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-text-secondary"
+                >
+                  <Check className="h-4 w-4 text-success" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              className={`mt-8 w-full rounded-xl px-5 py-3.5 font-medium transition ${
+                plan.featured
+                  ? 'bg-accent-primary text-white hover:bg-accent-glow'
+                  : 'border border-dark-border bg-dark-elevated text-text-primary hover:border-accent-primary'
+              }`}
+            >
+              Выбрать {plan.name}
+            </button>
+          </article>
+        ))}
+      </StaggerReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Section/ServersSectoin.tsx">
+import {
+  ArrowRight,
+  Globe2,
+  Rocket,
+  Server,
+  ShieldCheck,
+  Zap,
+} from 'lucide-react';
+import ScrollReveal from '../ScrollReveal';
+import StaggerReveal from '../StaggerReveal';
+import BlurReveal from '../BlurReveal';
+
+export default function ServersSection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" id='servers'>
+      <ScrollReveal>
+        <div className="mb-12 text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-dark-border bg-dark-surface px-4 py-2 text-sm text-text-secondary">
+            <Server className="h-4 w-4 text-accent-cyan" />
+            Глобальная инфраструктура
+          </div>
+          <h2 className="text-3xl font-semibold sm:text-4xl">
+            Более 120 серверов в 50+ странах
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+            Стабильное соединение с любой точки мира. Выбирайте оптимальную
+            локацию для своих задач.
+          </p>
+        </div>
+      </ScrollReveal>
+
+      {/* Статистика серверов */}
+      <StaggerReveal className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {/* <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4"> */}
+        {[
+          { value: '120+', label: 'Серверов', icon: Server },
+          { value: '50+', label: 'Стран', icon: Globe2 },
+          { value: '99.9%', label: 'Аптайм', icon: Zap },
+          { value: '24/7', label: 'Поддержка', icon: ShieldCheck },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded-2xl border border-dark-border bg-dark-surface p-4 text-center transition hover:scale-105"
+          >
+            <stat.icon className="mx-auto mb-2 h-6 w-6 text-accent-primary" />
+            <div className="text-2xl font-bold">{stat.value}</div>
+            <div className="text-sm text-text-muted">{stat.label}</div>
+          </div>
+        ))}
+        {/* </div> */}
+      </StaggerReveal>
+
+      {/* Регионы и страны */}
+      <StaggerReveal className="space-y-8" staggerDelay={0.3}>
+        {/* <div className="space-y-8"> */}
+          {[
+            {
+              region: 'Европа',
+              flag: '🇪🇺',
+              latency: '~30-60 ms',
+              countries: [
+                {
+                  flag: '🇳🇱',
+                  name: 'Нидерланды',
+                  cities: 'Амстердам +2',
+                  speed: '10 Gbps',
+                },
+                {
+                  flag: '🇩🇪',
+                  name: 'Германия',
+                  cities: 'Франкфурт, Берлин',
+                  speed: '10 Gbps',
+                },
+                {
+                  flag: '🇬🇧',
+                  name: 'Великобритания',
+                  cities: 'Лондон, Манчестер',
+                  speed: '10 Gbps',
+                },
+                {
+                  flag: '🇫🇷',
+                  name: 'Франция',
+                  cities: 'Париж',
+                  speed: '5 Gbps',
+                },
+              ],
+            },
+            {
+              region: 'Северная Америка',
+              flag: '🇺🇸',
+              latency: '~110-150 ms',
+              countries: [
+                {
+                  flag: '🇺🇸',
+                  name: 'США',
+                  cities: 'Нью-Йорк, Лос-Анджелес, Майами',
+                  speed: '10 Gbps',
+                },
+                {
+                  flag: '🇨🇦',
+                  name: 'Канада',
+                  cities: 'Торонто, Ванкувер',
+                  speed: '5 Gbps',
+                },
+              ],
+            },
+            {
+              region: 'Азия',
+              flag: '🇸🇬',
+              latency: '~180-220 ms',
+              countries: [
+                {
+                  flag: '🇸🇬',
+                  name: 'Сингапур',
+                  cities: 'Сингапур',
+                  speed: '10 Gbps',
+                },
+                {
+                  flag: '🇯🇵',
+                  name: 'Япония',
+                  cities: 'Токио, Осака',
+                  speed: '5 Gbps',
+                },
+                {
+                  flag: '🇰🇷',
+                  name: 'Южная Корея',
+                  cities: 'Сеул',
+                  speed: '5 Gbps',
+                },
+                {
+                  flag: '🇮🇳',
+                  name: 'Индия',
+                  cities: 'Мумбаи',
+                  speed: '2.5 Gbps',
+                },
+              ],
+            },
+            {
+              region: 'Остальной мир',
+              flag: '🌏',
+              latency: '~200-300 ms',
+              countries: [
+                {
+                  flag: '🇦🇺',
+                  name: 'Австралия',
+                  cities: 'Сидней, Мельбурн',
+                  speed: '5 Gbps',
+                },
+                {
+                  flag: '🇧🇷',
+                  name: 'Бразилия',
+                  cities: 'Сан-Паулу',
+                  speed: '5 Gbps',
+                },
+                {
+                  flag: '🇿🇦',
+                  name: 'ЮАР',
+                  cities: 'Йоханнесбург',
+                  speed: '2.5 Gbps',
+                },
+              ],
+            },
+          ].map((region) => (
+            <div
+              key={region.region}
+              className="rounded-3xl border border-dark-border bg-dark-surface p-6 shadow-lg"
+            >
+              <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl">{region.flag}</span>
+                    <h3 className="text-xl font-semibold">{region.region}</h3>
+                  </div>
+                  <div className="mt-1 text-sm text-text-muted">
+                    Средняя задержка: {region.latency}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-accent-cyan">
+                  <Zap className="h-4 w-4" />
+                  Оптимальные маршруты
+                </div>
+              </div>
+  
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {region.countries.map((country) => (
+                  <div
+                    key={country.name}
+                    className="group rounded-2xl border border-dark-border bg-dark-elevated p-4 transition-all hover:border-accent-primary hover:shadow-lg"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{country.flag}</span>
+                      <div>
+                        <div className="font-semibold">{country.name}</div>
+                        <div className="text-xs text-text-muted">
+                          {country.cities}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-xs text-text-muted">
+                        <Server className="h-3 w-3" />
+                        <span>Скорость:</span>
+                      </div>
+                      <div className="text-sm font-medium text-accent-cyan">
+                        {country.speed}
+                      </div>
+                    </div>
+                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-dark-border">
+                      <div
+                        className="h-full rounded-full bg-accent-primary transition-all duration-500 group-hover:bg-accent-glow"
+                        style={{
+                          width:
+                            country.speed === '10 Gbps'
+                              ? '100%'
+                              : country.speed === '5 Gbps'
+                                ? '60%'
+                                : '30%',
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        {/* </div> */}
+      </StaggerReveal>
+
+      <BlurReveal duration={0.4}>
+        <div className="mt-12 rounded-3xl bg-linear-to-r from-accent-primary/10 to-accent-cyan/10 p-6 text-center sm:p-8">
+          <Rocket className="mx-auto mb-4 h-10 w-10 text-accent-primary" />
+          <h3 className="text-xl font-semibold">
+            Не уверены, какой сервер выбрать?
+          </h3>
+          <p className="mx-auto mt-2 max-w-md text-text-secondary">
+            Включите «Быстрое подключение» — мы автоматически подберем оптимальную
+            локацию.
+          </p>
+          <button
+            type="button"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-accent-primary px-6 py-3 font-medium text-white transition hover:bg-accent-glow"
+          >
+            Подключиться автоматически
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </BlurReveal>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/StaggerReveal.tsx">
+// components/StaggerReveal.tsx
+'use client';
+
+import { motion, useInView, Variants } from 'motion/react';
+import { useRef, ReactNode } from 'react';
+
+interface StaggerRevealProps {
+  children: ReactNode;
+  className?: string;
+  staggerDelay?: number;
+  childClassName?: string;
+}
+
+export default function StaggerReveal({
+  children,
+  className = '',
+  staggerDelay = 0.1,
+  childClassName = '',
+}: StaggerRevealProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: staggerDelay,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const childVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+    >
+      {Array.isArray(children)
+        ? children.map((child, index) => (
+            <motion.div
+              key={index}
+              className={childClassName}
+              variants={childVariants}
+            >
+              {child}
+            </motion.div>
+          ))
+        : children}
+    </motion.div>
+  );
+}
+</file>
+
+<file path="src/hooks/useTheme.ts">
+// hooks/useTheme.ts
+import { useState, useEffect } from 'react';
+
+type Theme = 'light' | 'dark' | null;
+
+export const useTheme = () => {
+  const [theme, setTheme] = useState<Theme>(null);
+  const applyTheme = (newTheme: Theme) => {
+    if (newTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  };
+  useEffect(() => {
+
+    // Проверяем сохраненную тему или системные настройки
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
+
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    setTheme(initialTheme);
+    applyTheme(initialTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+  };
+
+  return {
+    theme,
+    toggleTheme,
+  };
+};
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+// import react from 'eslint-plugin-react';
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
+  {
+    rules: {
+      // 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react/react-in-jsx-scope': 'off',
+      'semi': ['error', 'always', { 'omitLastInOneLineBlock': false }],
+      'quotes': ['error', 'single'],
+      'react/prop-types': 'off',
+      'react/no-unknown-property': ['error', {
+        ignore: [
+          'xmlns',
+          'viewBox',
+          'preserveAspectRatio',
+          'xlink:href'
+        ]
+      }],
+    },
+  }
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+};
+
+export default nextConfig;
+</file>
+
+<file path="package.json">
+{
+  "name": "vpn-lending",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "eslint-plugin-react": "^7.37.5",
+    "lucide-react": "^1.16.0",
+    "motion": "^12.40.0",
+    "next": "16.2.6",
+    "next-themes": "^0.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="src/app/globals.css">
+@import "tailwindcss";
+
+:root {
+  /* Светлая тема (по умолчанию) */
+  --dark-deep: #f8fafc;
+  --dark-surface: #ffffff;
+  --dark-elevated: #f1f5f9;
+  --dark-border: #e2e8f0;
+  --accent-primary: #6c5ce7;
+  --accent-glow: #8b7cf0;
+  --accent-cyan: #00a88a;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+[data-theme="dark"] {
+  /* Темная тема */
+  --dark-deep: #0a0e1a;
+  --dark-surface: #111827;
+  --dark-elevated: #1a2235;
+  --dark-border: #243044;
+  --accent-primary: #7c6ff7;
+  --accent-glow: #9b8ff5;
+  --accent-cyan: #00d4aa;
+  --text-primary: #f0f2f5;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+}
+
+@theme inline {
+  --color-dark-deep: var(--dark-deep);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-elevated: var(--dark-elevated);
+  --color-dark-border: var(--dark-border);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-glow: var(--accent-glow);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: var(--dark-deep);
+  color: var(--text-primary);
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from 'next-themes';
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
+export const metadata: Metadata = {
+  title: 'Create Next App',
+  description: 'Generated by create next app',
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+      <head />
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/app/page.tsx">
+import BenefitsSection from '@/components/Section/BenefitsSection';
+import DevicesSection from '@/components/Section/DevicesSection';
+import FaqSection from '@/components/Section/FaqSection';
+import Footer from '@/components/Layout/Footer';
+import Header from '@/components/Layout/Header';
+import HeroSection from '@/components/Section/HeroSection';
+import HowSection from '@/components/Section/HowSection';
+import PlansSection from '@/components/Section/PlansSection';
+import ServersSection from '@/components/Section/ServersSectoin';
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-dark-deep text-text-primary">
+      <Header></Header>
+      <HeroSection></HeroSection>
+      <BenefitsSection></BenefitsSection>
+      <ServersSection></ServersSection>
+      <PlansSection></PlansSection>
+
+      <HowSection></HowSection>
+      <DevicesSection></DevicesSection>
+      <FaqSection></FaqSection>
+      <Footer></Footer>
+    </main>
+  );
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+</files>
